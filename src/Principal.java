@@ -6,19 +6,26 @@ public class Principal {
     public static void main(String[] args) throws IOException, InterruptedException {
         Scanner scanner = new Scanner(System.in);
         ExchangerateApi exchangerateApi = new ExchangerateApi();
+        HistoricoConversoes historicoConversoes = new HistoricoConversoes();
         int option = 0;
 
-        while (option != 7) {
+        while (option != 8) {
             printMenu();
             option = getOption(scanner);
 
-            if (option == 7) {
+            if (option == 8) {
                 break;
+            }
+
+            if (option == 7) {
+                historicoConversoes.mostrarHistorico();
+                continue;
             }
 
             try {
                 double value = getValue(scanner, "Digite o valor que irá converter: ");
-                processOption(option, value, exchangerateApi);
+                String resultado = processOption(option, value, exchangerateApi);
+                historicoConversoes.adicionarConversao(resultado);
             } catch (InputMismatchException e) {
                 System.out.println("Digite somente números.");
                 scanner.next();  // Limpar a entrada inválida
@@ -41,7 +48,8 @@ public class Principal {
                  | 4) Euro => Dolar                                 |
                  | 5) Dolar => Libra esterlina                      |
                  | 6) Libra esterlina => Dolar                      |
-                 | 7) Sair                                          |
+                 | 7) Mostrar histórico                             |
+                 | 8) Sair                                          |
                  |                                                  |
                  ****************************************************
                 """);
@@ -52,7 +60,7 @@ public class Principal {
         try {
             return scanner.nextInt();
         } catch (InputMismatchException e) {
-            System.out.println("Opção inválida. Por favor, digite um número entre 1 e 7.");
+            System.out.println("Opção inválida. Por favor, digite um número entre 1 e 8.");
             scanner.next();  // Limpar a entrada inválida
             return 0;
         }
@@ -63,7 +71,7 @@ public class Principal {
         return scanner.nextDouble();
     }
 
-    private static void processOption(int option, double value, ExchangerateApi exchangerateApi) throws IOException, InterruptedException {
+    private static String processOption(int option, double value, ExchangerateApi exchangerateApi) throws IOException, InterruptedException {
         String fromCurrency = null;
         String toCurrency = null;
 
@@ -80,18 +88,21 @@ public class Principal {
         if (fromCurrency != null && toCurrency != null) {
             Conversor conversor = exchangerateApi.ObtemMoeda(fromCurrency, toCurrency);
             double convertedValue = conversor.conversion_rate() * value;
-            System.out.printf("Valor %.2f [%s] Corresponde a ==> %.2f [%s]%n", value, fromCurrency, convertedValue, toCurrency);
+            String resultado = String.format("Valor %.2f [%s] Corresponde a ==> %.2f [%s]", value, fromCurrency, convertedValue, toCurrency);
+            System.out.println(resultado);
+            return resultado;
         }
+        return null;
     }
 
     private static int getContinueOption(Scanner scanner) {
-        System.out.print("Digite [0] para continuar | [7] para sair: ");
+        System.out.print("Digite [0] para continuar | [8] para sair: ");
         try {
             return scanner.nextInt();
         } catch (InputMismatchException e) {
             System.out.println("Entrada inválida. Saindo do programa.");
             scanner.next();  // Limpar a entrada inválida
-            return 7;
+            return 8;
         }
     }
 }
