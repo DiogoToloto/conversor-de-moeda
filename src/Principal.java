@@ -27,7 +27,7 @@ public class Principal {
                 String resultado = processOption(option, value, exchangerateApi);
                 historicoConversoes.adicionarConversao(resultado);
             } catch (InputMismatchException e) {
-                System.out.println("Digite somente números.");
+                System.out.println("Digite somente números!");
                 scanner.next();  // Limpar a entrada inválida
             }
 
