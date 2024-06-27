@@ -15,8 +15,8 @@ public class Principal {
         int opcao = 0;
         String msg = "Digite o valor que irá converter: ";
 
-
-        while (opcao != 7) {
+        try {
+            while (opcao != 7) {
 
 
             System.out.println("""
@@ -34,46 +34,50 @@ public class Principal {
                      ****************************************************
                     """);
 
-            System.out.println("Selecione uma opção: ");
-            opcao = leitura.nextInt();
 
-            if (Objects.equals(opcao, 1)) {
-                Conversor conversor = cunsulta.ObtemMoeda("USD", "BRL");
-                System.out.println(msg);
-                valor = leitura.nextDouble();
-                System.out.printf("Valor %.2f [USD] Corresponde a ==> " + conversor.conversion_rate() * valor + "[BRL]%n", valor);
-            } else if (Objects.equals(opcao, 2)) {
-                Conversor conversor = cunsulta.ObtemMoeda("BRL", "USD");
-                System.out.println(msg);
-                valor = leitura.nextDouble();
-                System.out.printf("Valor %.2f [BRL] Corresponde a ==> " + conversor.conversion_rate() * valor + "[USD]%n", valor);
-            } else if (Objects.equals(opcao, 3)) {
-                Conversor conversor = cunsulta.ObtemMoeda("USD", "EUR");
-                System.out.println(msg);
-                valor = leitura.nextDouble();
-                System.out.printf("Valor %.2f [USD] Corresponde a ==> " + conversor.conversion_rate() * valor + "[EUR]%n", valor);
-            } else if (Objects.equals(opcao, 4)) {
-                Conversor conversor = cunsulta.ObtemMoeda("EUR", "USD");
-                System.out.println(msg);
-                valor = leitura.nextDouble();
-                System.out.printf("Valor %.2f [EUR] Corresponde a ==> " + conversor.conversion_rate() * valor + "[USD]%n", valor);
-            } else if (Objects.equals(opcao, 5)) {
-                Conversor conversor = cunsulta.ObtemMoeda("USD", "GBP");
-                System.out.println(msg);
-                valor = leitura.nextDouble();
-                System.out.printf("Valor %.2f [USD] Corresponde a ==> " + conversor.conversion_rate() * valor + "[GBP]%n", valor);
-            } else if (Objects.equals(opcao, 6)) {
-                Conversor conversor = cunsulta.ObtemMoeda("GBP", "USD");
-                System.out.println(msg);
-                valor = leitura.nextDouble();
-                System.out.printf("Valor %.2f [GBP] Corresponde a ==> " + conversor.conversion_rate() * valor + "[USD]%n", valor);
-            } else if (Objects.equals(opcao, 7)) {
-                break;
+                System.out.println("Selecione uma opção: ");
+                opcao = leitura.nextInt();
+
+                if (Objects.equals(opcao, 1)) {
+                    Conversor conversor = cunsulta.ObtemMoeda("USD", "BRL");
+                    System.out.println(msg);
+                    valor = leitura.nextDouble();
+                    System.out.printf("Valor %.2f [USD] Corresponde a ==> " + conversor.conversion_rate() * valor + "[BRL]%n", valor);
+                } else if (Objects.equals(opcao, 2)) {
+                    Conversor conversor = cunsulta.ObtemMoeda("BRL", "USD");
+                    System.out.println(msg);
+                    valor = leitura.nextDouble();
+                    System.out.printf("Valor %.2f [BRL] Corresponde a ==> " + conversor.conversion_rate() * valor + "[USD]%n", valor);
+                } else if (Objects.equals(opcao, 3)) {
+                    Conversor conversor = cunsulta.ObtemMoeda("USD", "EUR");
+                    System.out.println(msg);
+                    valor = leitura.nextDouble();
+                    System.out.printf("Valor %.2f [USD] Corresponde a ==> " + conversor.conversion_rate() * valor + "[EUR]%n", valor);
+                } else if (Objects.equals(opcao, 4)) {
+                    Conversor conversor = cunsulta.ObtemMoeda("EUR", "USD");
+                    System.out.println(msg);
+                    valor = leitura.nextDouble();
+                    System.out.printf("Valor %.2f [EUR] Corresponde a ==> " + conversor.conversion_rate() * valor + "[USD]%n", valor);
+                } else if (Objects.equals(opcao, 5)) {
+                    Conversor conversor = cunsulta.ObtemMoeda("USD", "GBP");
+                    System.out.println(msg);
+                    valor = leitura.nextDouble();
+                    System.out.printf("Valor %.2f [USD] Corresponde a ==> " + conversor.conversion_rate() * valor + "[GBP]%n", valor);
+                } else if (Objects.equals(opcao, 6)) {
+                    Conversor conversor = cunsulta.ObtemMoeda("GBP", "USD");
+                    System.out.println(msg);
+                    valor = leitura.nextDouble();
+                    System.out.printf("Valor %.2f [GBP] Corresponde a ==> " + conversor.conversion_rate() * valor + "[USD]%n", valor);
+                } else if (Objects.equals(opcao, 7)) {
+                    break;
+                }
+
+                System.out.println("Digite [0] para continuar| [7] para sair");
+                opcao = leitura.nextInt();
             }
 
-            System.out.println("Digite [0] para continuar| [7] para sair");
-            opcao = leitura.nextInt();
-
+        } catch (Exception e) {
+            System.out.println("Digite somente numeros");
         }
 
         System.out.println("Programa finalizado!");
